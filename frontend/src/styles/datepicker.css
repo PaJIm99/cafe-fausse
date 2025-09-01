@@ -1,0 +1,189 @@
+/* Form styling */
+.reservation-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #ddd;
+  font-family: 'Georgia', serif;
+}
+
+/* Input styling */
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  background-color: #2a2a2e;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #ddd;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #c0a46b;
+  box-shadow: 0 0 0 2px rgba(192, 164, 107, 0.2);
+}
+
+/* Label styling */
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #c0a46b;
+}
+
+/* DatePicker container */
+.datepicker-container {
+  margin-bottom: 16px;
+}
+
+/* DatePicker input - wider to fit full date */
+.datepicker-input {
+  width: 100% !important;
+  min-width: 300px;
+  padding: 12px 16px;
+  background-color: #2a2a2e;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #ddd;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Button styling */
+.button-container {
+  margin-top: 1rem;
+}
+
+.button {
+  background-color: #c0a46b;
+  color: #1c1c1e;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #d4b77d;
+}
+
+/* Status message */
+.status-message {
+  margin-top: 16px;
+  color: #c0a46b;
+  font-weight: 500;
+}
+
+/* Availability info */
+.availability-info {
+  margin-top: 1rem;
+  color: #ddd;
+}
+
+/* Checkbox container */
+.checkbox-container {
+  margin-top: 0.75rem;
+}
+
+.checkbox-container label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #c0a46b;
+}
+
+/* Calendar styling (same as before but with minor improvements) */
+.react-datepicker {
+  font-family: 'Georgia', serif;
+  background-color: #1c1c1e;
+  border: 1px solid #444;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  color: #c0a46b;
+}
+
+.react-datepicker__header {
+  background-color: #2a2a2e;
+  border-bottom: 1px solid #555;
+  color: #c0a46b;
+}
+
+.react-datepicker__day-name {
+  color: #c0a46b;
+  font-weight: 600;
+}
+
+.react-datepicker__day {
+  color: #ddd;
+}
+
+.react-datepicker__day--today {
+  border: 1px solid #c0a46b;
+  border-radius: 50%;
+  color: #c0a46b;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #c0a46b;
+  color: #1c1c1e;
+  border-radius: 50%;
+}
+
+.react-datepicker__time-container {
+  border-left: 1px solid #444;
+  background-color: #1c1c1e;
+  width: 100px;
+}
+
+.react-datepicker__time-list {
+  width: 100px;
+}
+
+.react-datepicker__time-list-item {
+  color: #ddd;
+  padding: 8px 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.react-datepicker__time-list-item--selected {
+  background-color: #c0a46b;
+  color: #1c1c1e;
+  border-radius: 6px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .reservation-form {
+    padding: 16px;
+  }
+  
+  .datepicker-input {
+    min-width: unset;
+  }
+  
+  .react-datepicker {
+    font-size: 14px;
+  }
+  
+  .react-datepicker__time-container {
+    width: 80px;
+  }
+  
+  .react-datepicker__time-list {
+    width: 80px;
+  }
+}
