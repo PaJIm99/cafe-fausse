@@ -20,9 +20,9 @@ export default function Navbar() {
         <Link to="/" className="flex items-center gap-4">
           {/* Animated Logo */}
           <motion.img
-            src="/images/cafe-fausse.webp"
+            src="/images/new-cafe-fausse.webp"
             alt="Café Fausse Logo"
-            className="h-14 w-12 object-contain"
+            className="h-16 w-16 object-contain"
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
           />

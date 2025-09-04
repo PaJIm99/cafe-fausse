@@ -16,14 +16,14 @@ export default function PageTransition() {
     <AnimatePresence>
       {show && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.25 }}
           className="fixed inset-0 flex items-center justify-center pointer-events-none z-[9999]"
         >
           <img
-            src="/images/cafe-fausse.webp"
+            src="/images/new-cafe-fausse.webp"
             alt="Café Fausse"
             className="h-32 w-32 drop-shadow-lg"
           />
