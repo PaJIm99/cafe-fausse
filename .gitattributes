@@ -1,0 +1,21 @@
+# Set the default behavior for all files
+* text=auto
+
+# Explicitly define which files should be treated as text
+*.js text
+*.jsx text
+*.ts text
+*.tsx text
+*.html text
+*.css text
+*.json text
+*.md text
+*.txt text
+*.py text
+
+# Files that should never be converted
+*.bin -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text

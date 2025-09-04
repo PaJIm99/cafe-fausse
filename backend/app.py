@@ -54,23 +54,6 @@ def availability():
         avail = count_available(db, time_slot)
         return {"time_slot": time_slot.isoformat(), "available": avail, "total": 30}
 
-
-@app.post("/api/newsletter")
-def newsletter_signup():
-    data = request.get_json(force=True)
-    email = (data.get("email") or "").strip().lower()
-    name = (data.get("name") or "").strip()
-    if not email_regex.match(email):
-        return jsonify({"error": "Invalid email"}), 400
-    with session_scope() as db:
-        existing = db.execute(
-            select(Newsletter).where(Newsletter.email == email)
-        ).scalar_one_or_none()
-        if existing is None:
-            db.add(Newsletter(email=email, name=name))
-        return {"ok": True}
-
-
 @app.post("/api/reservations")
 def create_reservation():
     data = request.get_json(force=True)
@@ -95,15 +78,22 @@ def create_reservation():
             select(Customer).where(Customer.email == email)
         ).scalar_one_or_none()
         if cust is None:
-            cust = Customer(name=name, email=email, phone=phone, newsletter=newsletter)
+            cust = Customer(name=name, email=email, phone=phone)
             db.add(cust)
             db.flush()
         else:
             cust.name = name
             cust.phone = phone or cust.phone
-            cust.newsletter = cust.newsletter or newsletter
 
-        # Pick a free table (sync now)
+        # If newsletter opt-in → upsert into newsletter table
+        if newsletter:
+            existing_news = db.execute(
+                select(Newsletter).where(Newsletter.email == email)
+            ).scalar_one_or_none()
+            if not existing_news:
+                db.add(Newsletter(email=email, name=name))
+
+        # Pick a free table
         table = pick_table(db, time_slot)
         if table is None:
             return jsonify(
@@ -117,6 +107,7 @@ def create_reservation():
             guests=guests,
         )
         db.add(booking)
+
         try:
             db.flush()
         except IntegrityError:
@@ -153,6 +144,7 @@ def create_reservation():
         }
 
 
+
 @app.get("/api/admin/reservations")
 def list_reservations():
     with session_scope() as db:
@@ -175,3 +167,40 @@ def list_reservations():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+@app.post("/api/newsletter")
+def subscribe_newsletter():
+    data = request.get_json(force=True)
+    email = (data.get("email") or "").strip().lower()
+    name = (data.get("name") or "").strip()
+
+    if not email or not name:
+        return jsonify({"ok": False, "error": "Email and name are required"}), 400
+    if not email_regex.match(email):
+        return jsonify({"ok": False, "error": "Invalid email"}), 400
+
+    with session_scope() as db:
+        existing = db.execute(
+            select(Newsletter).where(Newsletter.email == email)
+        ).scalar_one_or_none()
+
+        if existing:
+            return jsonify({"ok": False, "error": "Already subscribed"}), 400
+
+        db.add(Newsletter(email=email, name=name))
+        db.flush()
+        return jsonify({"ok": True})
+
+
+@app.get("/api/newsletter/check")
+def check_newsletter():
+    email = request.args.get("email", "").strip().lower()
+    if not email or not email_regex.match(email):
+        return jsonify({"ok": False, "error": "Invalid email"}), 400
+
+    with session_scope() as db:
+        existing = db.execute(
+            select(Newsletter).where(Newsletter.email == email)
+        ).scalar_one_or_none()
+
+        return jsonify({"ok": True, "subscribed": bool(existing)})

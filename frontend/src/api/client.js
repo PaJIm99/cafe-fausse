@@ -29,11 +29,38 @@ export async function createReservation(payload) {
   return res.json();
 }
 
-export async function signupNewsletter(payload) {
-  const res = await fetch(`${BASE}/newsletter`, {
+// export async function signupNewsletter(payload) {
+//   const res = await fetch(`${BASE}/newsletter`, {
+//     method: 'POST',s
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify(payload),
+//   });
+//   return res.json();
+// }
+
+export async function subscribeNewsletter({ name, email }) {
+  const res = await fetch('http://localhost:5000/api/newsletter', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, email }),
   });
-  return res.json();
+
+  if (!res.ok) {
+    const data = await res.json();
+    return { ok: false, error: data.error || 'Unknown error' };
+  }
+
+  return await res.json(); // should return { ok: true } or { ok: false, error: "..." }
 }
+
+export async function checkNewsletter(email) {
+  try {
+    const res = await fetch(`/api/newsletter/check?email=${encodeURIComponent(email)}`);
+    return await res.json();
+  } catch {
+    return { ok: false, subscribed: false };
+  }
+}
+
