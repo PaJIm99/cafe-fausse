@@ -3,12 +3,12 @@
 A complete restaurant web app built with **React (Vite)** frontend and **Flask + PostgreSQL** backend.  
 
 # Features
-- ✅ 5 required pages (Home, Menu, Reservations, About, Gallery)  
-- ✅ Responsive UI with Grid/Flexbox  
-- ✅ Reservation system with 30 tables per timeslot  
-- ✅ Newsletter signup with email validation  
-- ✅ Admin endpoint for viewing reservations  
-- ✅ AI-assisted development (see below)
+- 5 required pages (Home, Menu, Reservations, About, Gallery)  
+- Responsive UI with Grid/Flexbox  
+- Reservation system with 30 tables per timeslot  
+- Newsletter signup with email validation  
+- Admin endpoint for viewing reservations  
+- AI-assisted development (see below)
 
 ## Tech Stack
 - Frontend: React, React Router, react-datepicker, CSS Grid/Flexbox  
@@ -64,3 +64,14 @@ Examples of usage:
 6) All generated code was reviewed, tested, and adjusted by me.
 
 7) The AI acted as a pair programmer to speed up development and improve quality.
+
+#### Repo updates
+# Stage everything (modified + new files)
+***from root project folder**
+git add .
+
+# Commit with a clear message
+git commit -m "Commit Text"
+
+# Push to GitHub
+git push origin main
